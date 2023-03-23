@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCartContext } from "../Context/CartContext";
 
-const Header = ({ theme, toggleTheme }) => {
+const Header = () => {
+
+  const {theme, toggleTheme} = useCartContext()
   return (
     <>
       <div

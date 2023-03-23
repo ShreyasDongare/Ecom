@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useCartContext } from "../Context/CartContext";
 
-const Products = ({theme}) => {
+const Products = () => {
   const [products, setproducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -34,11 +35,13 @@ const Products = ({theme}) => {
     getProductData();
   }, []);
 
+  const { theme, addToCart, addToWishlist } = useCartContext();
+
   return (
     <div
       className={`w-full  py-20 ${
-        theme ? "bg-slate-500 text-white" : " bg-sky-300"
-      } bg-sky-100`}
+        theme ? "bg-slate-500 text-white" : " bg-sky-50"
+      } `}
     >
       <div
         className="max-w-screen-lg m-auto  flex justify-center my-2"
@@ -75,7 +78,9 @@ const Products = ({theme}) => {
                 <div
                   key={id}
                   className={`${
-                    theme ? "hover:bg-slate-700 text-white" : " bg-sky-300"
+                    theme
+                      ? "bg-slate-400 hover:bg-slate-700 text-white"
+                      : " bg-sky-200 hover:bg-sky-300"
                   }  hover:border  hover:scale-105 duration-300  w-72 h-[400px] m-2 p-2 rounded cursor-pointer`}
                 >
                   <img
@@ -92,15 +97,21 @@ const Products = ({theme}) => {
                     </div>
                     <div className="flex flex-col items-center gap-2">
                       <button
+                        onClick={() => addToWishlist(product)}
                         className={`w-full ${
-                          theme ? " bg-slate-200 text-black" : "bg-sky-700"
+                          theme
+                            ? " bg-slate-200 text-black"
+                            : "bg-black text-white"
                         } py-3 rounded hover:bg-sky-600`}
                       >
                         Add to Wishlist
                       </button>
                       <button
+                        onClick={() => addToCart(product)}
                         className={`w-full ${
-                          theme ? " bg-slate-200 text-black" : "bg-sky-700"
+                          theme
+                            ? " bg-slate-200 text-black"
+                            : "bg-black text-white"
                         } py-3 rounded hover:bg-sky-600`}
                       >
                         Add to Cart
